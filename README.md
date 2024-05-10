@@ -8,10 +8,10 @@ step 1:
 Install all the package needed for this project. 1. numpy 2. matplotlib 3. PyQt5  
 step 2:  
 Run the main.py, and then you will see this following interface.  
-![setting change interface](Rebellion_simulate/demoPic/1.png)
+![setting change interface](Rebellion_simulate/demoPic/1.png)  
 step 3:  
 Click run simulation, you will see the world be simulated, with one line char near it:  
-![Simulation](Rebellion_simulate/demoPic/2.png)
+![Simulation](Rebellion_simulate/demoPic/2.png)  
 step 4:  
 close the simulation interface, you can re-enter setting parameter and run again.
 
