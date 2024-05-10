@@ -10,6 +10,7 @@ class Cop(Turtle):
         self.state = st.cops
     
     def enforce(self, map, agents):
+        # cops try to arrest the active agents in the nearby patches
         nearby_patches = self.get_patches_in_radius()
         agent_dict = {(agent.x, agent.y): agent for agent in agents if agent.state == st.active}
 
@@ -17,7 +18,7 @@ class Cop(Turtle):
             if (x, y) in agent_dict:
                 agent = agent_dict[(x, y)]
                 agent.state = st.jail
-                agent.jail_term = random.randint(0, st.max_jail_term)  # 设置监禁期为0到max_jail_term的随机值
+                agent.jail_term = random.randint(0, st.max_jail_term) 
                 map[x, y] = agent.state
                 self.move_to(x, y, map)
                 break
