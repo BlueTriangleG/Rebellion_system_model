@@ -5,7 +5,7 @@
 
 class Setting:
     # agent parameters
-    initial_cop_density = 0.016
+    initial_cop_density = 0.04
     initial_agent_density = 0.7
     vision = 7
     threshold = 0.1
@@ -17,6 +17,6 @@ class Setting:
     jail = 4
     empty = 0
     # environment parameters
-    government_legitimacy = 0.25
+    government_legitimacy = 0.82
     max_jail_term = 30
     board_size = 40

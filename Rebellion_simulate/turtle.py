@@ -11,33 +11,35 @@ class Turtle:
         Turtle.id += 1
         self.previeous_state = st.empty
     def get_patches_in_radius(self):
-        patches = []
         radius = st.vision
-        board_size = st.board_size 
+        board_size = st.board_size
+        patches = []
         for dx in range(-radius, radius + 1):
             for dy in range(-radius, radius + 1):
-                # Using modulo arithmetic to deal with cyclic world boundaries
-                x = (self.x + dx) % board_size
-                y = (self.y + dy) % board_size
-                if np.sqrt(dx**2 + dy**2) <= radius:  # Using Euclidean distances to determine points within a radius
+                if dx*dx + dy*dy <= radius*radius:  
+                    x = (self.x + dx) % board_size
+                    y = (self.y + dy) % board_size
                     patches.append((x, y))
         return patches
     
     def move(self, map):
-            # Get all coordinate points within the radius of the field of view
-            nearby_patches = self.get_patches_in_radius()
-            available_patches = []
+        radius = st.vision
+        board_size = st.board_size
+        available_patches = []
+        
+        # Combine loops to find available spots
+        for dx in range(-radius, radius + 1):
+            for dy in range(-radius, radius + 1):
+                if dx*dx + dy*dy <= radius*radius:
+                    px = (self.x + dx) % board_size
+                    py = (self.y + dy) % board_size
+                    if map[px, py] == 0:
+                        available_patches.append((px, py))
 
-            # Filter out the points on the map with a value of 0 (i.e., idle points) from these coordinate points
-            for patch in nearby_patches:
-                px, py = patch
-                if map[px, py] == 0:  # Check if the corresponding position on the map is free
-                    available_patches.append((px, py))
-
-            # If there's a point available, randomly select one to be moved
-            if available_patches:
-                new_x, new_y = random.choice(available_patches)  # Randomly select an available location
-                self.move_to(new_x, new_y, map)
+        # If there's an available point, randomly select one to move to
+        if available_patches:
+            new_x, new_y = available_patches[np.random.randint(len(available_patches))]
+            self.move_to(new_x, new_y, map)
                 
     def move_to(self, x, y, map):
         map[self.x, self.y] = self.previeous_state

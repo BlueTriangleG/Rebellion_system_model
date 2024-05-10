@@ -55,19 +55,28 @@ class Agent(Turtle):
         map[self.x, self.y] = self.state
         
     def move(self, map):
-        # If the agent is in jail, it will not move, otherwise it will randomly move to an available location
         if self.state == st.jail:
-            return
+            return  
         
-        nearby_patches = self.get_patches_in_radius()
-        available_patches = [(px, py) for px, py in nearby_patches if map[px, py] == 0]
+        radius = st.vision
+        board_size = st.board_size
+        available_patches = []
 
+        # Find available spots
+        for dx in range(-radius, radius + 1):
+            for dy in range(-radius, radius + 1):
+                if dx*dx + dy*dy <= radius*radius: 
+                    x = (self.x + dx) % board_size
+                    y = (self.y + dy) % board_size
+                    if map[x, y] == 0:  
+                        available_patches.append((x, y))
+        # If there's an available point, randomly select one to move to
         if available_patches:
-            # Randomly select a location to move to
-            new_x, new_y = random.choice(available_patches)
-            map[self.x, self.y] = 0 
+            index = np.random.randint(len(available_patches))
+            new_x, new_y = available_patches[index]
+            map[self.x, self.y] = 0
             self.x, self.y = new_x, new_y
-            map[new_x, new_y] = self.state  
+            map[new_x, new_y] = self.state
 
     def reduce_jail_term(self, map):
         # Reduce the jail term by 1 each time step
