@@ -36,7 +36,7 @@ class Agent(Turtle):
     
     def estimated_arrest_probability(self, map):
         # Record the patches you can see
-        nearby_patches = self.get_patches_in_radius()
+        nearby_patches = self.get_patches_in_radius(map, [st.cops, st.active, st.empty])
         c = self.count_cops(nearby_patches, map)
         a = 1 + self.count_active_agents(nearby_patches, map)
         k = st.k
@@ -57,19 +57,7 @@ class Agent(Turtle):
     def move(self, map):
         if self.state == st.jail:
             return  
-        
-        radius = st.vision
-        board_size = st.board_size
-        available_patches = []
-
-        # Find available spots
-        for dx in range(-radius, radius + 1):
-            for dy in range(-radius, radius + 1):
-                if dx*dx + dy*dy <= radius*radius: 
-                    x = (self.x + dx) % board_size
-                    y = (self.y + dy) % board_size
-                    if map[x, y] == 0:  
-                        available_patches.append((x, y))
+        available_patches = self.get_patches_in_radius(map, [st.empty])
         # If there's an available point, randomly select one to move to
         if available_patches:
             index = np.random.randint(len(available_patches))

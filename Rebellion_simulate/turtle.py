@@ -10,7 +10,7 @@ class Turtle:
         self.id = Turtle.id
         Turtle.id += 1
         self.previeous_state = st.empty
-    def get_patches_in_radius(self):
+    def get_patches_in_radius(self,map, filter = [st.empty]):
         radius = st.vision
         board_size = st.board_size
         patches = []
@@ -19,22 +19,13 @@ class Turtle:
                 if dx*dx + dy*dy <= radius*radius:  
                     x = (self.x + dx) % board_size
                     y = (self.y + dy) % board_size
-                    patches.append((x, y))
+                    if map[x, y] in filter:
+                        patches.append((x, y))
         return patches
     
     def move(self, map):
-        radius = st.vision
-        board_size = st.board_size
-        available_patches = []
-        
-        # Combine loops to find available spots
-        for dx in range(-radius, radius + 1):
-            for dy in range(-radius, radius + 1):
-                if dx*dx + dy*dy <= radius*radius:
-                    px = (self.x + dx) % board_size
-                    py = (self.y + dy) % board_size
-                    if map[px, py] == 0:
-                        available_patches.append((px, py))
+        # Get the available patches in the radius
+        available_patches = self.get_patches_in_radius(map, [st.empty])
 
         # If there's an available point, randomly select one to move to
         if available_patches:
