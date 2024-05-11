@@ -19,5 +19,5 @@ class Setting:
     # environment parameters
     government_legitimacy = 0.82
     max_jail_term = 30
-    board_size = 40
+    board_size = 80
     movement = True

@@ -10,6 +10,7 @@ class Turtle:
         self.id = Turtle.id
         Turtle.id += 1
         self.previeous_state = st.empty
+    # Get the patches in the radius，filter is the type of patch you want to get.
     def get_patches_in_radius(self,map, filter = [st.empty]):
         radius = st.vision
         board_size = st.board_size
@@ -19,6 +20,7 @@ class Turtle:
                 if dx*dx + dy*dy <= radius*radius:  
                     x = (self.x + dx) % board_size
                     y = (self.y + dy) % board_size
+                    # If the patch is in the radius and the type of patch is in the filter, add it to the patches.
                     if map[x, y] in filter:
                         patches.append((x, y))
         return patches
