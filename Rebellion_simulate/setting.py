@@ -20,3 +20,4 @@ class Setting:
     government_legitimacy = 0.82
     max_jail_term = 30
     board_size = 40
+    movement = True

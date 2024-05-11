@@ -40,10 +40,11 @@ class Simulation:
     def update_map(self):
         # update agent and cop in one time step
         # update ruleM
-        for agent in self.agents:
-            agent.move(self.map)
-        for cop in self.cops:
-            cop.move(self.map)
+        if st.movement == True:
+            for agent in self.agents:
+                agent.move(self.map)
+            for cop in self.cops:
+                cop.move(self.map)
         # update rule A
         for agent in self.agents:
             agent.determine_behavior(self.map)
