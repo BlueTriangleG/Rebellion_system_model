@@ -32,7 +32,7 @@ class SimulationWindow(QWidget):
         hbox = QHBoxLayout()
         label = QLabel(label_text)
         edit = QLineEdit()
-        edit.setText(default_value)  # Set the default value of the input box
+        edit.setText(default_value)  # Set the default value of the input boxœœ
         hbox.addWidget(label)
         hbox.addWidget(edit)
         layout.addLayout(hbox)

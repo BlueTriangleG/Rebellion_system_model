@@ -43,7 +43,7 @@ class Simulation:
         if st.movement == True:
             for agent in self.agents:
                 agent.move(self.map)
-            for cop in self.cops:
+        for cop in self.cops:
                 cop.move(self.map)
         # update rule A
         for agent in self.agents:
